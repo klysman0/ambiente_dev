@@ -1,1 +1,1 @@
-# maquina virtual com o mysql instalado
+# Repositório para estudar vagrant
