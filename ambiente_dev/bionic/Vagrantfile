@@ -35,5 +35,19 @@ config.vm.define "phpweb" do |phpweb|
     end
 end
 
+  config.vm.define "myslqserver" do |mysqlserver|
+      mysqlserver.vm.network "public_network", ip: "192.168.1.22"
+
+  end
+
+  config.vm.define "ansible" do |ansible|
+      ansible.vm.network "public_network", ip: "192.168.1.26"
+      ansible.vm.provision "shell",
+          inline: "apt-get update && \
+                   apt-get install -y software-properties-common && \
+                   apt-add-repository --yes --update ppa:ansible/ansible && \
+                   apt-get install -y ansible"
+    
+  end
 
 end
