@@ -35,13 +35,21 @@ config.vm.define "phpweb" do |phpweb|
     end
 end
 
-  config.vm.define "myslqserver" do |mysqlserver|
+  config.vm.define "mysqlserver" do |mysqlserver|
       mysqlserver.vm.network "public_network", ip: "192.168.1.22"
+
+      mysqlserver.vm.provision "shell",
+      inline: "cat /vagrant/configs/id_bionic.pub >> .ssh/authorized_keys"
 
   end
 
   config.vm.define "ansible" do |ansible|
       ansible.vm.network "public_network", ip: "192.168.1.26"
+
+      ansible.vm.provision "shell",
+      inline: "cp /vagrant/id_bionic  /home/vagrant && \
+                chmod 600 /home/vagrant/id_bionic"
+
       ansible.vm.provision "shell",
           inline: "apt-get update && \
                    apt-get install -y software-properties-common && \
